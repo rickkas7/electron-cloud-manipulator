@@ -10,6 +10,7 @@
   "contributors": [],
   "license": "Apache Version 2.0",
   "dependencies": {
+    "dns": "^0.2.2",
     "nconf": "0.8.5",
     "vorpal": "^1.12.0"
   },

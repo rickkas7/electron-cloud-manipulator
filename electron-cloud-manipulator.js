@@ -12,6 +12,8 @@ const argv = require('yargs').argv
 
 const vorpal = require('vorpal')();
 
+const dns = require('dns');
+
 var modes = {
 	data:true,
 	latency:0,
@@ -20,11 +22,18 @@ var modes = {
 
 const server = dgram.createSocket('udp4');
 
-
-var dsAddr = config.get('DS_ADDR');
 var dsPort = config.get('DS_PORT');
-console.log('using device service address ' + dsAddr);
+var dsUrl = config.get('DS_URL');
+var dsAddr = config.get('DS_IP');
 
+dns.lookup(dsUrl, (err, addr, fam) => {
+	if (err) {
+		console.log(err.message);
+	} else {
+		console.log('using device service address ' + addr);
+		dsAddr = addr;
+	}
+});
 
 vorpal
 	.command('data [action]', 'Turns data transmissions, both upload and download. Action = [on|off] or omit to toggle.')
@@ -136,7 +145,10 @@ class Device {
 	
 	send(msg) {
 		// Send to the real UDP device service from our client-specific socket
-		this.socket.send(msg, dsPort, dsAddr);
+		if (dsAddr != null)
+		{
+			this.socket.send(msg, dsPort, dsAddr);
+		}
 	}
 }
 var devices = [];

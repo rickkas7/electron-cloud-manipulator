@@ -11,14 +11,16 @@ nconf
   .argv()
   // 2. Environment variables
   .env([
-	'DS_ADDR',
+	'DS_URL',
+	'DS_IP',
 	'DS_PORT'
   ])
   // 3. Config file
   .file({ file: path.join(__dirname, 'config.json') })
   // 4. Defaults
   .defaults({
-	  'DS_ADDR':'34.201.112.170',
+	  'DS_URL': '0.udp.particle.io',
+	  'DS_IP':'107.20.71.170',
 	  'DS_PORT':5684
   });
 
