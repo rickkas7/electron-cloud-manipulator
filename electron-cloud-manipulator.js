@@ -22,7 +22,6 @@ var modes = {
 
 const server = dgram.createSocket('udp4');
 
-
 var dsPort = config.get('DS_PORT');
 var dsUrl = config.get('DS_URL');
 var dsAddr = config.get('DS_IP');
@@ -35,7 +34,6 @@ dns.lookup(dsUrl, (err, addr, fam) => {
 		dsAddr = addr;
 	}
 });
-
 
 vorpal
 	.command('data [action]', 'Turns data transmissions, both upload and download. Action = [on|off] or omit to toggle.')
